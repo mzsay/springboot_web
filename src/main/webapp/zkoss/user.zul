@@ -1,0 +1,59 @@
+<zk xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.zkoss.org/2005/zul/zul.xsd">
+	<separator></separator>
+	<window vflex="true"  position="center" apply="org.zkoss.bind.BindComposer"
+	    viewModel="@id('vm') @init('app.zkoss.UserVM')"
+	    form="@id('fx') @load(vm.user) @save(vm.user, before='submit')">
+		<vlayout>
+		    <grid>
+		        <columns>
+		            <column label="Label" width="100px"/>
+		            <column label="Value"/>
+		        </columns>
+		        <rows>
+		            <row>
+		                <label value="Name"/>
+		                <hlayout>
+		                    <textbox value="@bind(fx.name)" width="150px" tabindex="1" />
+                        </hlayout>
+                        <div>
+                            <label sclass="hightlight">Textbox</label>
+                        </div>
+		            </row>
+		            <row>
+                        <label value="Email"/>
+                        <hlayout>
+                            <textbox value="@bind(fx.email)" width="150px" tabindex="1" />
+                        </hlayout>
+                        <div>
+                            <label sclass="hightlight">Textbox</label>
+                        </div>
+                    </row>
+                    <row>
+                        <cell colspan="3" style="text-align:center">
+                            <vlayout>
+                                <button label="Submit" onClick="@command('submit')" width="100px" height="30px" />
+                            </vlayout>
+                        </cell>
+                    </row>
+		        </rows>
+		    </grid>
+
+			<label value="User List"/>
+			<button label="Refresh" onClick="@command('retrieveUser')"/>
+			<listbox height="160px" model="@bind(vm.userList)" emptyMessage="No user found in the result">
+                <listhead>
+                    <listheader label="Id" />
+                    <listheader label="Name"/>
+                    <listheader label="Email"/>
+                </listhead>
+                <template name="model">
+                    <listitem>
+                        <listcell label="@bind(each.id)"></listcell>
+                        <listcell label="@bind(each.name)"></listcell>
+                        <listcell label="@bind(each.email)"></listcell>
+                    </listitem>
+                </template>
+            </listbox>
+		</vlayout>
+	</window>
+</zk>
